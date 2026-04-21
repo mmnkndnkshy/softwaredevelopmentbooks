@@ -13,9 +13,9 @@ public enum SoftwareDevelopmentBook {
     TEST_DRIVEN_DEVELOPMENT(4, "Test-Driven Development By Example", "Kent Beck", 2003, 50.00),
     WORKING_WITH_LEGACY_CODE(5, "Working Effectively With Legacy Code", "Michael C. Feathers", 2004, 50.00);
 
-    private final int id;
-    private final String title;
-    private final String author;
-    private final int year;
-    private final double price;
+    private  int id;
+    private  String title;
+    private  String author;
+    private  int year;
+    private  double price;
 }
