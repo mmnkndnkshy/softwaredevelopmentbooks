@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/softwaredevelopmentbooks")
+@RequestMapping("${softwaredevelopmentbooks.controller.path}")
 public class SoftwareDevelopmentBooksController {
 
     @Autowired
     private SoftwareDevelopmentBooksService softwareDevelopmentBooksService;
 
-    @GetMapping("/getbooks")
+    @GetMapping("${softwaredevelopmentbooks.endpoints.getbooks}")
     public List<Book> getBooks(){
         return softwareDevelopmentBooksService.getBooks();
     }

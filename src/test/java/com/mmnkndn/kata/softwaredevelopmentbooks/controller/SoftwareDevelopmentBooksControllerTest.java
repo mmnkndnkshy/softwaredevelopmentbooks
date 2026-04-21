@@ -4,6 +4,7 @@ import com.mmnkndn.kata.softwaredevelopmentbooks.service.SoftwareDevelopmentBook
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,6 +18,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(value = SoftwareDevelopmentBooksController.class)
 public class SoftwareDevelopmentBooksControllerTest {
+
+    @Value("${softwaredevelopmentbooks.controller.path}${softwaredevelopmentbooks.endpoints.getbooks}")
+    private String GETBOOKS_ENPOINT;
 
     @Autowired
     private SoftwareDevelopmentBooksController softwareDevelopmentBooksController;
@@ -36,6 +40,6 @@ public class SoftwareDevelopmentBooksControllerTest {
     @Test
     @DisplayName("API getBooks should return status ok")
     void getBooks_Api_shouldReturn_statusOk() throws Exception {
-        mockMvc.perform(get("/api/softwaredevelopmentbooks/getbooks")).andExpect(status().isOk());
+        mockMvc.perform(get(GETBOOKS_ENPOINT)).andExpect(status().isOk());
     }
 }
