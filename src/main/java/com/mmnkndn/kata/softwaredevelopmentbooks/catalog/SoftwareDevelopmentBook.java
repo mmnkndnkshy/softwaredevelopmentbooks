@@ -1,5 +1,10 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.catalog;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum SoftwareDevelopmentBook {
 
     CLEAN_CODE(1, "Clean Code", "Robert Martin", 2008, 50.00),
@@ -13,32 +18,4 @@ public enum SoftwareDevelopmentBook {
     private final String author;
     private final int year;
     private final double price;
-
-    SoftwareDevelopmentBook(int id, String title, String author, int year, double price) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public double getPrice() {
-        return price;
-    }
 }
