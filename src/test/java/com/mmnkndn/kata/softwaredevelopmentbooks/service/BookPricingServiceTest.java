@@ -18,9 +18,11 @@ public class BookPricingServiceTest {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
+    private static final int FOUR = 4;
     private static final double BOOK_PRICE = 50.00;
     private static final double PRICE_OF_TWO_DISTINCT_BOOKS = 95.00;
     private static final double PRICE_OF_THREE_DISTINC_BOOKS = 135.00;
+    private static final double PRICE_OF_FOUR_DISTINCT_BOOKS = 160.00;
 
     @Autowired
     private BookPricingService bookPricingService;
@@ -86,5 +88,27 @@ public class BookPricingServiceTest {
 
         assertEquals(PRICE_OF_THREE_DISTINC_BOOKS, actualPrice);
 
+    }
+
+    @Test
+    @DisplayName("book pricing should apply 20% discount on four distinct books")
+    void bookPricing_shouldApplyTwentyPercentageDiscountOnFourDistinctBooks(){
+        List<BookDto> listOfBooks = new ArrayList<BookDto>();
+
+        BookDto firstBook = new BookDto(ONE, ONE);
+        listOfBooks.add(firstBook);
+
+        BookDto secondBook = new BookDto(TWO, ONE);
+        listOfBooks.add(secondBook);
+
+        BookDto thirdBook = new BookDto(THREE, ONE);
+        listOfBooks.add(thirdBook);
+
+        BookDto fourthBook = new BookDto(FOUR, ONE);
+        listOfBooks.add(fourthBook);
+
+        Double actualPrice = bookPricingService.bookPricing(listOfBooks);
+
+        assertEquals(PRICE_OF_FOUR_DISTINCT_BOOKS, actualPrice);
     }
 }
