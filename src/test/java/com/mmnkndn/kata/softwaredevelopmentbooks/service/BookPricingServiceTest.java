@@ -18,6 +18,7 @@ public class BookPricingServiceTest {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final double BOOK_PRICE = 50.00;
+    private static final double PRICE_OF_TWO_DISTINCT_BOOKS=95.00;
 
     @Autowired
     private BookPricingService bookPricingService;
@@ -50,20 +51,18 @@ public class BookPricingServiceTest {
     }
 
     @Test
-    @DisplayName("book pricing should return expected price for multiple books")
-    void bookPricing_shouldReturnPriceforMultipleBooks(){
+    @DisplayName("book pricing should apply 5% discount on two distinct books")
+    void bookPricing_shouldApplyFivePercentageDiscountOnTwoDistinctBooks() {
         List<BookDto> listOfBooks = new ArrayList<BookDto>();
 
-        BookDto bookDto1 = new BookDto(ONE, ONE);
-        listOfBooks.add(bookDto1);
+        BookDto firstBook = new BookDto(ONE, ONE);
+        listOfBooks.add(firstBook);
 
-        BookDto bookDto2 = new BookDto(TWO, ONE);
-        listOfBooks.add(bookDto2);
+        BookDto secondBook = new BookDto(TWO, ONE);
+        listOfBooks.add(secondBook);
 
         Double actualPrice = bookPricingService.bookPricing(listOfBooks);
 
-        Double expectedPrice = BOOK_PRICE*TWO;
-
-        assertEquals(expectedPrice, actualPrice);
+        assertEquals(PRICE_OF_TWO_DISTINCT_BOOKS, actualPrice);
     }
 }

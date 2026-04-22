@@ -15,6 +15,13 @@ public class BookPricingService {
 
     public Double bookPricing(List<BookDto> listOfBooks) {
         Map<Integer, Double> bookIdPriceMap = Arrays.stream(SoftwareDevelopmentBook.values()).collect(Collectors.toMap(SoftwareDevelopmentBook::getId, SoftwareDevelopmentBook::getPrice));
-        return listOfBooks.stream().mapToDouble(book -> bookIdPriceMap.get(book.getId()) * book.getNoOfBooks()).sum();
+
+        long distinctBooks = listOfBooks.stream().mapToLong(BookDto::getId).distinct().count();
+        int discountPercentage = ((distinctBooks == 2)? 5: 0);
+
+        double actualPrice = listOfBooks.stream().mapToDouble(book -> bookIdPriceMap.get(book.getId()) * book.getNoOfBooks()).sum();
+        double dicountPrice = ((actualPrice * discountPercentage)/100);
+
+        return (actualPrice - dicountPrice);
     }
 }
