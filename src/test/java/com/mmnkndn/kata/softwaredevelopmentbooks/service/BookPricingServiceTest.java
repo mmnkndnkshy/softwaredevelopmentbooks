@@ -21,10 +21,12 @@ public class BookPricingServiceTest {
     private static final int FOUR = 4;
     private static final int FIVE = 5;
     private static final double BOOK_PRICE = 50.00;
+    private static final double PRICE_OF_ONE_DISTINCT_BOOK = 50.00;
     private static final double PRICE_OF_TWO_DISTINCT_BOOKS = 95.00;
     private static final double PRICE_OF_THREE_DISTINC_BOOKS = 135.00;
     private static final double PRICE_OF_FOUR_DISTINCT_BOOKS = 160.00;
     private static final double PRICE_OF_FIVE_DISTINCT_BOOKS = 187.50;
+    private static final double PRICE_OF_THREE_BOOKS_AFTER_APPLY_DISCOUNT_FOR_TWO_DISTINCT_BOOKS =145.00;
 
     @Autowired
     private BookPricingService bookPricingService;
@@ -45,15 +47,15 @@ public class BookPricingServiceTest {
     @ParameterizedTest
     @CsvSource({"1, 50.00", "2, 100.00", "3, 150.00", "4, 200.00", "5, 250.00"})
     @DisplayName("book pricing should return price based on quantity")
-    void bookPricing_shouldReturnPriceBasedOnQuantity(int noOfBooks, double expectedPrice) {
+    void bookPricing_shouldReturnPriceBasedOnQuantity() {
         List<BookDto> listOfBooks = new ArrayList<BookDto>();
 
-        BookDto bookDto = new BookDto(ONE, noOfBooks);
+        BookDto bookDto = new BookDto(ONE, ONE);
         listOfBooks.add(bookDto);
 
         Double actualPrice = bookPricingService.bookPricing(listOfBooks);
 
-        assertEquals(expectedPrice, actualPrice);
+        assertEquals(PRICE_OF_ONE_DISTINCT_BOOK, actualPrice);
     }
 
     @Test
@@ -137,5 +139,21 @@ public class BookPricingServiceTest {
         Double actualPrice = bookPricingService.bookPricing(listOfBooks);
 
         assertEquals(PRICE_OF_FIVE_DISTINCT_BOOKS, actualPrice);
+    }
+
+    @Test
+    @DisplayName("book pricing should apply 5% discount on only two distinct books")
+    void bookPricing_shouldApplyFivePercentageDiscountOnlyForTwoDistinctBooks() {
+        List<BookDto> listOfBooks = new ArrayList<BookDto>();
+
+        BookDto firstBook = new BookDto(ONE, ONE);
+        listOfBooks.add(firstBook);
+
+        BookDto secondBook = new BookDto(TWO, TWO);
+        listOfBooks.add(secondBook);
+
+        Double actualPrice = bookPricingService.bookPricing(listOfBooks);
+
+        assertEquals(PRICE_OF_THREE_BOOKS_AFTER_APPLY_DISCOUNT_FOR_TWO_DISTINCT_BOOKS, actualPrice);
     }
 }
