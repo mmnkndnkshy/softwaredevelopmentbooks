@@ -19,10 +19,12 @@ public class BookPricingServiceTest {
     private static final int TWO = 2;
     private static final int THREE = 3;
     private static final int FOUR = 4;
+    private static final int FIVE = 5;
     private static final double BOOK_PRICE = 50.00;
     private static final double PRICE_OF_TWO_DISTINCT_BOOKS = 95.00;
     private static final double PRICE_OF_THREE_DISTINC_BOOKS = 135.00;
     private static final double PRICE_OF_FOUR_DISTINCT_BOOKS = 160.00;
+    private static final double PRICE_OF_FIVE_DISTINCT_BOOKS = 187.50;
 
     @Autowired
     private BookPricingService bookPricingService;
@@ -110,5 +112,30 @@ public class BookPricingServiceTest {
         Double actualPrice = bookPricingService.bookPricing(listOfBooks);
 
         assertEquals(PRICE_OF_FOUR_DISTINCT_BOOKS, actualPrice);
+    }
+
+    @Test
+    @DisplayName("book pricing should apply 25% discount on five distinct books")
+    void bookPricing_shouldApplyTwentyFivePercentageDiscountOnFiveDistinctBooks(){
+        List<BookDto> listOfBooks = new ArrayList<BookDto>();
+
+        BookDto firstBook = new BookDto(ONE, ONE);
+        listOfBooks.add(firstBook);
+
+        BookDto secondBook = new BookDto(TWO, ONE);
+        listOfBooks.add(secondBook);
+
+        BookDto thirdBook = new BookDto(THREE, ONE);
+        listOfBooks.add(thirdBook);
+
+        BookDto fourthBook = new BookDto(FOUR, ONE);
+        listOfBooks.add(fourthBook);
+
+        BookDto fifthBook = new BookDto(FIVE, ONE);
+        listOfBooks.add(fifthBook);
+
+        Double actualPrice = bookPricingService.bookPricing(listOfBooks);
+
+        assertEquals(PRICE_OF_FIVE_DISTINCT_BOOKS, actualPrice);
     }
 }
