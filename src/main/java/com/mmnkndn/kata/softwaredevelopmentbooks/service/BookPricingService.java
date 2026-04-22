@@ -4,6 +4,7 @@ import com.mmnkndn.kata.softwaredevelopmentbooks.catalog.DiscountProviderEnum;
 import com.mmnkndn.kata.softwaredevelopmentbooks.catalog.SoftwareDevelopmentBook;
 import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookDto;
 import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookGroup;
+import com.mmnkndn.kata.softwaredevelopmentbooks.dto.PricingSummaryDto;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,8 +18,9 @@ public class BookPricingService {
     private static final int ONE_QUANTITY = 1;
 
 
-    public Double bookPricing(List<BookDto> listOfBooks) {
+    public PricingSummaryDto bookPricing(List<BookDto> listOfBooks) {
 
+        PricingSummaryDto pricingSummary = new PricingSummaryDto();
 
         Map<Integer, Integer> numberOfBooksMap = listOfBooks.stream().collect(Collectors.toMap(BookDto::getId, BookDto::getNoOfBooks));
 
@@ -32,8 +34,13 @@ public class BookPricingService {
 
         double discount = listOfBookGroups.stream().mapToDouble(BookGroup::getDiscount).sum();
 
-        return actualPrice - discount;
+        pricingSummary.setActualPrice(actualPrice);
 
+        pricingSummary.setTotalDiscount(discount);
+
+        pricingSummary.setFinalPrice(actualPrice - discount);
+
+        return pricingSummary;
     }
 
     private List<BookGroup> getBookGroupsWithDiscount(Map<Integer, Integer> numberofBooksMap, List<BookGroup> bookGroup) {
