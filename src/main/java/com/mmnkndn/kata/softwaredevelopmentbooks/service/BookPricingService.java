@@ -6,14 +6,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class BookPricingService {
 
-    public Double bookPricing(BookDto bookDto) {
+    public Double bookPricing(List<BookDto> listOfBooks) {
         Map<Integer, Double> bookIdPriceMap = Arrays.stream(SoftwareDevelopmentBook.values()).collect(Collectors.toMap(SoftwareDevelopmentBook::getId, SoftwareDevelopmentBook::getPrice));
-        return (bookIdPriceMap.get(bookDto.getId()) * bookDto.getNoOfBooks());
+        return listOfBooks.stream().mapToDouble(book -> bookIdPriceMap.get(book.getId()) * book.getNoOfBooks()).sum();
     }
 }

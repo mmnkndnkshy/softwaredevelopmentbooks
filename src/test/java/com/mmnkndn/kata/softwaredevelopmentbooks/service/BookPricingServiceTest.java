@@ -8,11 +8,15 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class BookPricingServiceTest {
     private static final int ONE = 1;
+    private static final int TWO = 2;
     private static final double BOOK_PRICE = 50.00;
 
     @Autowired
@@ -21,10 +25,12 @@ public class BookPricingServiceTest {
     @Test
     @DisplayName("book pricing for a book should return 50")
     void bookPricingForABook_shouldReturnFifty() {
+        List<BookDto> listOfBooks = new ArrayList<>();
 
         BookDto bookDto = new BookDto(ONE, ONE);
+        listOfBooks.add(bookDto);
 
-        Double actualPrice = bookPricingService.bookPricing(bookDto);
+        Double actualPrice = bookPricingService.bookPricing(listOfBooks);
 
         assertEquals(BOOK_PRICE, actualPrice);
     }
@@ -33,10 +39,30 @@ public class BookPricingServiceTest {
     @CsvSource({"1, 50.00", "2, 100.00", "3, 150.00", "4, 200.00", "5, 250.00"})
     @DisplayName("book pricing should return price based on quantity")
     void bookPricing_shouldReturnPriceBasedOnQuantity(int noOfBooks, double expectedPrice) {
+        List<BookDto> listOfBooks = new ArrayList<BookDto>();
 
         BookDto bookDto = new BookDto(ONE, noOfBooks);
+        listOfBooks.add(bookDto);
 
-        Double actualPrice = bookPricingService.bookPricing(bookDto);
+        Double actualPrice = bookPricingService.bookPricing(listOfBooks);
+
+        assertEquals(expectedPrice, actualPrice);
+    }
+
+    @Test
+    @DisplayName("book pricing should return expected price for multiple books")
+    void bookPricing_shouldReturnPriceforMultipleBooks(){
+        List<BookDto> listOfBooks = new ArrayList<BookDto>();
+
+        BookDto bookDto1 = new BookDto(ONE, ONE);
+        listOfBooks.add(bookDto1);
+
+        BookDto bookDto2 = new BookDto(TWO, ONE);
+        listOfBooks.add(bookDto2);
+
+        Double actualPrice = bookPricingService.bookPricing(listOfBooks);
+
+        Double expectedPrice = BOOK_PRICE*TWO;
 
         assertEquals(expectedPrice, actualPrice);
     }
