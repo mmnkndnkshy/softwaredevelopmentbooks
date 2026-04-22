@@ -18,7 +18,7 @@ public class BookPricingService {
     private static final int ONE_QUANTITY = 1;
 
 
-    public PricingSummaryDto bookPricing(List<BookDto> listOfBooks) {
+    public PricingSummaryDto getPricingSummary(List<BookDto> listOfBooks) {
 
         PricingSummaryDto pricingSummary = new PricingSummaryDto();
 
