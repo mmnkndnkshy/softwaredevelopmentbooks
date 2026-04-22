@@ -29,14 +29,7 @@ public class BookPricingService {
 
         double discountedPrice = actualPriceForDiscountedItem * getDiscountPercentage(discountGroup) / HUNDRED;
 
-        groupItems.forEach(bookId -> {
-            int numberOfBooks = numberOfBooksMap.get(bookId);
-            if (numberOfBooks > ONE_QUANTITY) {
-                numberOfBooksMap.put(bookId, numberOfBooks - ONE_QUANTITY);
-            } else {
-                numberOfBooksMap.remove(bookId);
-            }
-        });
+        cleanupDiscountedBooks(numberOfBooksMap, groupItems);
 
         double priceForDiscountedBooks = actualPriceForDiscountedItem - discountedPrice;
 
@@ -46,6 +39,17 @@ public class BookPricingService {
 
         return (priceForDiscountedBooks + priceForRemainingBooks);
 
+    }
+
+    private void cleanupDiscountedBooks(Map<Integer, Integer> numberOfBooksMap, List<Integer> groupItems) {
+        groupItems.forEach(bookId -> {
+            int numberOfBooks = numberOfBooksMap.get(bookId);
+            if (numberOfBooks > ONE_QUANTITY) {
+                numberOfBooksMap.put(bookId, numberOfBooks - ONE_QUANTITY);
+            } else {
+                numberOfBooksMap.remove(bookId);
+            }
+        });
     }
 
     private int getDiscountPercentage(long distinctBooks) {
