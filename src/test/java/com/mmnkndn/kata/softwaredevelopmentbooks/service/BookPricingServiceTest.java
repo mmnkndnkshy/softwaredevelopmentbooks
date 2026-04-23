@@ -28,9 +28,9 @@ public class BookPricingServiceTest {
     private static final double PRICE_OF_FOUR_DISTINCT_BOOKS = 160.00;
     private static final double PRICE_OF_FIVE_DISTINCT_BOOKS = 187.50;
     private static final double PRICE_OF_THREE_BOOKS_AFTER_APPLY_DISCOUNT_FOR_TWO_DISTINCT_BOOKS = 145.00;
-    private static final double PRICE_OF_NINE_BOOKS_AFTER_APPLY_DISCOUNT_FOR_DISTINCT_BOOKS = 372.50;
+    private static final double PRICE_OF_NINE_BOOKS_AFTER_APPLY_DISCOUNT_FOR_DISTINCT_BOOKS = 370.00;
     private static final double PRICE_OF_NINE_BOOKS_WITHOUT_DISCOUNT = 450.00;
-    private static final double PRICE_OF_NINE_BOOKS_WITH_DISCOUNT = 77.50;
+    private static final double PRICE_OF_NINE_BOOKS_WITH_DISCOUNT = 80.00;
 
     @Autowired
     private BookPricingService bookPricingService;

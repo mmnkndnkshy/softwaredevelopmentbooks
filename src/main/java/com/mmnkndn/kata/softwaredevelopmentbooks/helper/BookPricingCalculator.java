@@ -1,32 +1,27 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.helper;
 
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookGroup;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.PricingSummaryDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
+@Component
+@RequiredArgsConstructor
+public class BookPricingCalculator {
 
-public final class BookPricingCalculator {
+    private static final int ONE = 1;
 
-    private BookPricingCalculator() {
-    }
+    private static final int HUNDRED = 100;
 
-    public static PricingSummaryDto calculate(List<BookGroup> groups) {
+    private final DiscountResolver discountResolver;
 
-        double actualPrice =
-                groups.stream()
-                        .mapToDouble(BookGroup::getActualPrice)
-                        .sum();
+    private final BookCatalog bookCatalog;
 
-        double discount =
-                groups.stream()
-                        .mapToDouble(BookGroup::getDiscount)
-                        .sum();
+    public double calculateGroupPrice(int size) {
 
-        PricingSummaryDto pricingSummary = new PricingSummaryDto();
-        pricingSummary.setActualPrice(actualPrice);
-        pricingSummary.setTotalDiscount(discount);
-        pricingSummary.setFinalPrice(actualPrice - discount);
+        double pricePerBook = bookCatalog.getPrice(ONE);
+        double total = size * pricePerBook;
 
-        return pricingSummary;
+        int discount = discountResolver.getDiscountPercentage(size);
+
+        return total - (total * discount / HUNDRED);
     }
 }

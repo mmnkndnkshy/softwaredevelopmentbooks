@@ -1,32 +1,46 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.service;
 
-import com.mmnkndn.kata.softwaredevelopmentbooks.catalog.DiscountProviderEnum;
-import com.mmnkndn.kata.softwaredevelopmentbooks.catalog.SoftwareDevelopmentBook;
 import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookDto;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookGroup;
 import com.mmnkndn.kata.softwaredevelopmentbooks.dto.PricingSummaryDto;
-import com.mmnkndn.kata.softwaredevelopmentbooks.helper.BookGroupingHelper;
-import com.mmnkndn.kata.softwaredevelopmentbooks.helper.BookPricingCalculator;
+import com.mmnkndn.kata.softwaredevelopmentbooks.helper.BookCatalog;
+import com.mmnkndn.kata.softwaredevelopmentbooks.helper.BookPricingEngine;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BookPricingService {
 
-    public PricingSummaryDto getPricingSummary(List<BookDto> listOfBooks) {
+    private final BookPricingEngine bookPricingEngine;
 
-        PricingSummaryDto pricingSummary = new PricingSummaryDto();
+    private final BookCatalog bookCatalog;
 
-        Map<Integer, Integer> numberOfBooksMap = listOfBooks.stream().collect(Collectors.toMap(BookDto::getId, BookDto::getNoOfBooks));
+    public PricingSummaryDto getPricingSummary(List<BookDto> books) {
 
-        List<BookGroup> listOfBookGroups = BookGroupingHelper.getGroupedBooks(numberOfBooksMap, new ArrayList<>());
+        Map<Integer, Integer> bookMap = books.stream()
+                .collect(Collectors.toMap(
+                        BookDto::getId,
+                        BookDto::getNoOfBooks,
+                        Integer::sum
+                ));
 
-        listOfBookGroups.add(BookGroupingHelper.getRemainingBooksGroup(numberOfBooksMap));
+        double finalPrice = bookPricingEngine.getOptimalPrice(bookMap);
 
-        return BookPricingCalculator.calculate(listOfBookGroups);
+        double pricePerBook = bookCatalog.getPrice(1);
+
+        int totalBooks = bookMap.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        double actualPrice = totalBooks * pricePerBook;
+
+        double totalDiscount = actualPrice - finalPrice;
+
+        return PricingSummaryDto.of(actualPrice, totalDiscount, finalPrice);
     }
 
 }

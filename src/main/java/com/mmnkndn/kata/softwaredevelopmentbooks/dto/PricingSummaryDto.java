@@ -1,20 +1,24 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.dto;
 
 import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@Setter
+@RequiredArgsConstructor
 public class PricingSummaryDto {
 
-    private List<BookGroup> listOfBookGroups;
+    //private List<BookGroup> listOfBookGroups;
 
-    private double actualPrice;
+    private final double actualPrice;
 
-    private double totalDiscount;
+    private final double totalDiscount;
 
-    private double finalPrice;
+    private final double finalPrice;
+
+    public static PricingSummaryDto of(double actualPrice,
+                                       double totalDiscount,
+                                       double finalPrice) {
+        return new PricingSummaryDto(actualPrice, totalDiscount, finalPrice);
+    }
 
 }
