@@ -1,7 +1,7 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.service;
 
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.Book;
 import com.mmnkndn.kata.softwaredevelopmentbooks.catalog.SoftwareDevelopmentBook;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.Book;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

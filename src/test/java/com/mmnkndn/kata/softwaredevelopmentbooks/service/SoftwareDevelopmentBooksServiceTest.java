@@ -1,7 +1,8 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.Book;
+
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

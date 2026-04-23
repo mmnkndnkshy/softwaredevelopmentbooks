@@ -1,7 +1,8 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.service;
 
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookDto;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.PricingSummaryDto;
+
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.BookDto;
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.PricingSummaryDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,7 +1,7 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.service;
 
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookDto;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.PricingSummaryDto;
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.BookDto;
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.PricingSummaryDto;
 import com.mmnkndn.kata.softwaredevelopmentbooks.helper.BookCatalog;
 import com.mmnkndn.kata.softwaredevelopmentbooks.helper.BookPricingEngine;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,12 @@ public class BookPricingService {
 
         double totalDiscount = actualPrice - finalPrice;
 
-        return PricingSummaryDto.of(actualPrice, totalDiscount, finalPrice);
+        PricingSummaryDto pricingSummary = new PricingSummaryDto();
+        pricingSummary.setActualPrice(actualPrice);
+        pricingSummary.setTotalDiscount(totalDiscount);
+        pricingSummary.setFinalPrice(finalPrice);
+
+        return pricingSummary;
     }
 
 }

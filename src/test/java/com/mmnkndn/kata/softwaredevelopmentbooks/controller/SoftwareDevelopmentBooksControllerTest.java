@@ -1,7 +1,7 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookDto;
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.BookDto;
 import com.mmnkndn.kata.softwaredevelopmentbooks.service.BookPricingService;
 import com.mmnkndn.kata.softwaredevelopmentbooks.service.SoftwareDevelopmentBooksService;
 import org.junit.jupiter.api.BeforeEach;

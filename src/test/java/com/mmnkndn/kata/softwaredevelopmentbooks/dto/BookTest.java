@@ -1,5 +1,7 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.dto;
 
+
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.Book;
 import com.mmnkndn.kata.softwaredevelopmentbooks.catalog.SoftwareDevelopmentBook;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

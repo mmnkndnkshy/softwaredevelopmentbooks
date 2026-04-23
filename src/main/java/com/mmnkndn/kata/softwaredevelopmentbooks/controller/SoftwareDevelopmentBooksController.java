@@ -1,8 +1,8 @@
 package com.mmnkndn.kata.softwaredevelopmentbooks.controller;
 
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.Book;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.BookDto;
-import com.mmnkndn.kata.softwaredevelopmentbooks.dto.PricingSummaryDto;
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.Book;
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.BookDto;
+import com.mmnkndn.kata.softwaredevelopmentbooks.api.model.PricingSummaryDto;
 import com.mmnkndn.kata.softwaredevelopmentbooks.service.BookPricingService;
 import com.mmnkndn.kata.softwaredevelopmentbooks.service.SoftwareDevelopmentBooksService;
 import org.springframework.beans.factory.annotation.Autowired;
