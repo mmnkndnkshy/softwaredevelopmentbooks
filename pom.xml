@@ -36,6 +36,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>3.2.6</version>
@@ -46,5 +51,40 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.6.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-openapi</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+
+                            <modelPackage>com.mmnkndn.kata.softwaredevelopmentbooks.api.model</modelPackage>
+                            <apiPackage>com.mmnkndn.kata.softwaredevelopmentbooks.api</apiPackage>
+
+                            <generateApis>false</generateApis>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+
+                            <output>${project.build.directory}/generated-sources/openapi</output>
+
+                            <configOptions>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <useLombok>true</useLombok>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
